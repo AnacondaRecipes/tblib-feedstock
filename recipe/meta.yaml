@@ -37,8 +37,13 @@ about:
   license: BSD 2-Clause
   license_family: BSD
   summary: 'Traceback serialization library.'
+  description: |
+    tblib allows you to Pickle tracebacks and raise exceptions with pickled
+    tracebacks in different processes.This allows better error handling when
+    running code over multiple processes.
   dev_url: https://github.com/ionelmc/python-tblib
   doc_url: https://python-tblib.readthedocs.io/en/latest/
+  doc_source_url: https://github.com/ionelmc/python-tblib/blob/master/docs/index.rst
 
 extra:
   recipe-maintainers:
