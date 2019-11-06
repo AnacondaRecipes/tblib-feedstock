@@ -1,4 +1,4 @@
-{% set version = "1.4.0" %}
+{% set version = "1.5.0" %}
 
 package:
   name: tblib
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/t/tblib/tblib-{{ version }}.tar.gz
-  sha256: bd1ad564564a158ff62c290687f3db446038f9ac11a0bf6892712e3601af3bcd
+  sha256: 1735ff8fd6217446384b5afabead3b142cf1a52d242cfe6cab4240029d6d131a
 
 build:
   number: 0
