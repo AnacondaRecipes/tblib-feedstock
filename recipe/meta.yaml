@@ -1,44 +1,55 @@
-{% set version = "1.7.0" %}
+{% set name = "tblib" %}
+{% set version = "3.1.0" %}
 
 package:
-  name: tblib
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/t/tblib/tblib-{{ version }}.tar.gz
-  sha256: 059bd77306ea7b419d4f76016aef6d7027cc8a0785579b5aad198803435f882c
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 06404c2c9f07f66fee2d7d6ad43accc46f9c3361714d9b8426e7f47e595cd652
 
 build:
   number: 0
-  noarch: python
-  script: python -m pip install --no-deps --ignore-installed .
-
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<39]
 
 requirements:
   host:
     - python
     - pip
-
+    - wheel
+    - setuptools >=40.1.0
   run:
     - python
 
 test:
+  source_files:
+    - tests
+    - pytest.ini
   imports:
     - tblib
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v
+  requires:
+    - pip
+    - pytest
+    - pytest-benchmark
 
 about:
   home: https://github.com/ionelmc/python-tblib
   license_file: LICENSE
-  license: BSD 2-Clause
+  license: BSD-2-Clause
   license_family: BSD
-  summary: 'Traceback serialization library.'
+  summary: Traceback serialization library.
   description: |
     tblib allows you to Pickle tracebacks and raise exceptions with pickled
     tracebacks in different processes.This allows better error handling when
     running code over multiple processes.
   dev_url: https://github.com/ionelmc/python-tblib
-  doc_url: https://python-tblib.readthedocs.io/en/latest/
-  doc_source_url: https://github.com/ionelmc/python-tblib/blob/master/docs/index.rst
+  doc_url: https://python-tblib.readthedocs.io
 
 extra:
   recipe-maintainers:
