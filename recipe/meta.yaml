@@ -1,32 +1,30 @@
 {% set name = "tblib" %}
-{% set version = "3.1.0" %}
+{% set version = "3.2.2" %}
+{% set deselect_tests = "" %}
+{% set deselect_tests = " --deselect=tests/test_pickle_exception.py::test_install" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 06404c2c9f07f66fee2d7d6ad43accc46f9c3361714d9b8426e7f47e595cd652
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e9a652692d91bf4f743d4a15bc174c0b76afc750fe8c7b6d195cc1c1d6d2ccec
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: True  # [py<39]
+  skip: true  # [py<39]
 
 requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools >=40.1.0
+    - setuptools >=80
   run:
     - python
 
 # ZeroDivisionError: division by zero
-{% set deselect_tests = "" %}
-{% set deselect_tests = " --deselect=tests/test_pickle_exception.py::test_install" %}
-
 test:
   source_files:
     - tests
